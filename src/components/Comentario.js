@@ -1,23 +1,21 @@
 // Comentario.js
 import React from "react";
 import './Comentario.css';
+import imagemUsuario from '../icons/user.png'
+import { formatRelative } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 
 const Comentario = props => {
-    const formataHora = props.data.toString().split('G')[0].trim()
-    return (
-        <div className="Comentario">
-            <div className="UserInfo">
-                <h2>{props.nome}</h2> 
-                <p>{formataHora}</p>
-            </div>
-            <div className="Email">
-                <p>{props.email}</p>
-            </div>
-            <div className="texto">
-                <p>{props.children}</p>
-            </div>
+    return <div className="Comentario">
+        <img class="avatar" src={imagemUsuario} alt={props.nome} />
+        <div class="conteudo">
+            <h2 class="nome">{props.nome}</h2>
+            <p class="email">{props.email}</p>
+            <p class="mensagem">{props.children}</p>
+            <p class="data">{formatRelative(props.data, new Date(), { locale: ptBR })}</p>
+            <button onClick={props.onRemove}>&times;</button>
         </div>
-    );
+    </div>
 };
 
 export default Comentario;
